@@ -6,11 +6,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
 
-# settings.py
+CORS_ALLOW_ALL_ORIGINS = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.lhr.life'] # Allow all hosts during development
 
-CSRF_TRUSTED_ORIGINS = ['https://3e908eb08634eb.lhr.life']
+CSRF_TRUSTED_ORIGINS = ['https://d9776c75975864.lhr.life']
 
 ROOT_URLCONF = 'quiz_project.urls'
 
@@ -24,9 +24,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'quiz',  # Your app
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
