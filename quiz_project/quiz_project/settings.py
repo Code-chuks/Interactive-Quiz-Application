@@ -1,20 +1,13 @@
-# settings.py
-
 import os
+from pathlib import Path
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = 'your-secret-key-here'
 
 DEBUG = True
 
-CORS_ALLOW_ALL_ORIGINS = True
-
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.lhr.life'] # Allow all hosts during development
-
-CSRF_TRUSTED_ORIGINS = ['https://d9776c75975864.lhr.life']
-
-ROOT_URLCONF = 'quiz_project.urls'
-
-SECRET_KEY = 'your-secret-key-here'
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.lhr.life']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -23,14 +16,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'quiz',  # Your app
     'rest_framework',
-    'corsheaders',
+    'quiz',
 ]
 
 MIDDLEWARE = [
-     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -39,6 +29,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+ROOT_URLCONF = 'quiz_project.urls'
 
 TEMPLATES = [
     {
@@ -56,6 +48,8 @@ TEMPLATES = [
     },
 ]
 
+WSGI_APPLICATION = 'quiz_project.wsgi.application'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -67,12 +61,43 @@ DATABASES = {
     }
 }
 
-# Other settings...
-
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
-
-# To store static files in a custom directory during development
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
+
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CSRF_COOKIE_HTTPONLY = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+CSRF_TRUSTED_ORIGINS = [
+    'https://e06505a88bf431.lhr.life',
+    'https://3b359f26611b81.lhr.life',
+    'https://f380d0d228af24.lhr.life',
+    'https://03fe33e84a12ca.lhr.life',
+    'https://71eff6e92c49e7.lhr.life',
+]
+
+CSRF_FAILURE_VIEW = 'django.views.csrf.csrf_failure'

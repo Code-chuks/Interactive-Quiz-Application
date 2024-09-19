@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Quiz App</title>
+    <title>{% block title %}Interactive Quiz App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}"> <!-- If you have any styles -->
 </head>
 <body>
-    <!-- Authentication Links -->
     <nav>
         {% if user.is_authenticated %}
             <p>Welcome, {{ user.username }}! <a href="{% url 'logout' %}">Logout</a></p>
@@ -15,8 +15,7 @@
         {% endif %}
     </nav>
 
-    <!-- Content Block -->
     {% block content %}
-    {% endblock content %}
+    {% endblock %}
 </body>
 </html>
